@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 setup(
     name = "nose-html",
-    version = '1.0',
+    version = '1.1',
     author = "Wai Yip Tung, The SIO2 Project Team",
     author_email = 'sio2@sio2project.mimuw.edu.pl',
     description = "HTML report generation plugin for nose",
