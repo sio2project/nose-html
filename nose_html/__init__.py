@@ -431,23 +431,28 @@ class _TestResult(object):
         #   time taken to run the test (datetime.timedelta),
         # )
         self.result = []
+        
+    def testTime(self, test):
+        if hasattr(test, 'testStartTime'):
+            return datetime.datetime.now() - test.testStartTime
+        else:
+            return datetime.timedelta()
 
     def addSuccess(self, test, capt=''):
         self.success_count += 1
-        self.result.append((0, test, capt, '',
-            datetime.datetime.now() - test.testStartTime))
+        self.result.append((0, test, capt, '', self.testTime(test)))
 
     def addError(self, test, err, capt=''):
         self.error_count += 1
         self.result.append((2, test, capt,
             ''.join(traceback.format_exception(*err)),
-            datetime.datetime.now() - test.testStartTime))
+            self.testTime(test)))
 
     def addFailure(self, test, err, capt=''):
         self.failure_count += 1
         self.result.append((1, test, capt,
             ''.join(traceback.format_exception(*err)),
-            datetime.datetime.now() - test.testStartTime))
+            self.testTime(test)))
 
 
 class HTMLGenerator_mixin(Template_mixin):
